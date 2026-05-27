@@ -3,7 +3,8 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copy npm configuration so Docker builds use the same peer dependency policy as local installs.
+COPY package*.json .npmrc ./
 RUN npm ci
 
 COPY . .
