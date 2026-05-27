@@ -5,8 +5,8 @@ WORKDIR /app
 # Copy package files and npm config
 COPY package*.json .npmrc ./
 
-# Install dependencies
-RUN npm ci
+# Install all dependencies for compilation, even when the build environment sets NODE_ENV=production
+RUN npm ci --include=dev
 
 # Copy source code
 COPY . .
