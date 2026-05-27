@@ -134,13 +134,13 @@ npm run dev
 For production, use the main `docker-compose.yml` with optional services:
 
 ```bash
-# Basic production (SQLite, local storage)
+# Basic production (SQLite, local storage, API + Dashboard)
 docker compose up -d
 
 # With PostgreSQL database
 docker compose --profile postgres up -d
 
-# Full stack (PostgreSQL, Redis, Dashboard, Traefik)
+# Full stack (PostgreSQL, Redis, MinIO, Traefik)
 docker compose --profile full up -d
 ```
 
@@ -149,16 +149,16 @@ docker compose --profile full up -d
 | `postgres`       | PostgreSQL database   |
 | `redis`          | Redis cache           |
 | `minio`          | S3-compatible storage |
-| `with-dashboard` | Web dashboard         |
 | `with-proxy`     | Traefik reverse proxy |
 | `full`           | All services above    |
 
 ### Coolify
 
-When deploying with Coolify's Docker Compose build pack, keep `COMPOSE_PROFILES=with-dashboard`
-and do not enable `with-proxy`; Coolify already provides the public reverse proxy. Assign the
-public domain to the `dashboard` service on port `80`. The dashboard container proxies `/api/*`
-and `/socket.io/*` to `openwa-api` internally.
+When deploying with Coolify's Docker Compose build pack, leave `COMPOSE_PROFILES` empty unless you
+need optional services such as `postgres`, `redis`, or `minio`; do not enable `with-proxy` because
+Coolify already provides the public reverse proxy. Assign the public domain to the `dashboard`
+service on port `80`. The dashboard container proxies `/api/*` and `/socket.io/*` to `openwa-api`
+internally.
 
 > **Development vs Production**
 >
