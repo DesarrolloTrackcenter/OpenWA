@@ -153,6 +153,13 @@ docker compose --profile full up -d
 | `with-proxy`     | Traefik reverse proxy |
 | `full`           | All services above    |
 
+### Coolify
+
+When deploying with Coolify's Docker Compose build pack, keep `COMPOSE_PROFILES=with-dashboard`
+and do not enable `with-proxy`; Coolify already provides the public reverse proxy. Assign the
+public domain to the `dashboard` service on port `80`. The dashboard container proxies `/api/*`
+and `/socket.io/*` to `openwa-api` internally.
+
 > **Development vs Production**
 >
 > - Development (`docker-compose.dev.yml`): SQLite, local storage, both API & Dashboard included
