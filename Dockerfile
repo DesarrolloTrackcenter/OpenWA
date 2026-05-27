@@ -16,8 +16,8 @@ RUN apt-get update && apt-get install -y \
 # Copy package files
 COPY package*.json ./
 
-# Install all dependencies (including devDependencies for build)
-RUN npm ci
+# Install all dependencies for compilation, even when the build environment sets NODE_ENV=production
+RUN npm ci --include=dev
 
 # Copy source code
 COPY . .
