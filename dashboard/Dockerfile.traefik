@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Copy npm configuration so Docker builds use the same peer dependency policy as local installs.
 COPY package*.json .npmrc ./
-RUN npm ci
+RUN npm ci --include=dev
 
 COPY . .
 RUN npm run build
